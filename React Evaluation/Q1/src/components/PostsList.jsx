@@ -11,10 +11,27 @@ const PostsList = () => {
         setForm({title: post.title, body: post.body});
     };
 
-    
+    const saveEdit=(id)=>{
+        updatePost(id, form);
+        setEditId(null);
+    };
 
   return (
-    <div></div>
+    <div>
+        {posts.map(post => (
+            <div key = {post.id}>
+                {editId === post.id ? (
+                    <>
+                    <input value={form.title}
+                    onChange={e => setForm({...form, title: e.target.value})}/>
+                    <textarea value={form.body}
+                    onChange={e => setForm({...form, body: e.target.value})}/>
+                    
+                    </>
+                )}
+            </div>
+        ) )}
+    </div>
   )
 }
 
