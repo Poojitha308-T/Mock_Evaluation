@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { usePosts } from '../contexts/PostsContext';
 
 const PostsList = () => {
 
@@ -26,7 +27,14 @@ const PostsList = () => {
                     onChange={e => setForm({...form, title: e.target.value})}/>
                     <textarea value={form.body}
                     onChange={e => setForm({...form, body: e.target.value})}/>
-                    
+                    <button onClick={() =>saveEdit(post.id)}>Save</button>
+                    </>
+                ) : (
+                    <>
+                    <h3>{posts.title}</h3>
+                    <p>{post.body}</p>
+                    <button onClick={() =>startEdit(post)}>Edit</button>
+                    <button onClick={()=> deletePost(post.id)}>Delete</button>
                     </>
                 )}
             </div>
