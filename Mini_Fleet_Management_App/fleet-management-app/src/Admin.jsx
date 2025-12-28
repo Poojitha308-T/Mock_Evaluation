@@ -1,6 +1,11 @@
+import { useState } from "react";
+
 function Admin(){
+    const [fleets, setFleets] = useState([]);
     return(
-        <h2> Welcome to Admin Page</h2>
+        <>
+        
+        </>
     )
 
 }

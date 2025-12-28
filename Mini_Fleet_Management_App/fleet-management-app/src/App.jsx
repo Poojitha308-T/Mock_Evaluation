@@ -1,17 +1,19 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import Admin from "./Admin";
 
 function App(){
   return(
-    <>
+    
     <BrowserRouter>
     <Routes>
-      <Route to="/" element={<Login/>}/>
-      <Route to="/admin" element={<Admin/>}/>
+      <Route path="/" element={<Navigate to="/login"/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/admin" element={<Admin/>}/>
     </Routes>
     </BrowserRouter>
-    </>
+    
   )
 }
 export default App;

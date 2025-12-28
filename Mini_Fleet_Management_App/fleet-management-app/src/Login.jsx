@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import Admin from "./Admin";
 
 function Login(){
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [valid, setValid] = useState("false");
-    const navigate = useNavigate;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [valid, setValid] = useState(false);
+    const navigate = useNavigate();
     
 
-    useEffect=((email,password)=>{
+    useEffect(()=>{
         const Email = "admin@gmail.com";
         const Password = "admin1234";
         if(email===Email && password=== Password){
@@ -20,6 +21,7 @@ function Login(){
     },[email,password])
 
     const handlelogin=(e)=>{
+        e.preventDefault();
         if(valid){
             alert("Login success")
             navigate("/admin");
@@ -32,6 +34,7 @@ function Login(){
 
 
     return(
+        
         <div>
             <input type="email" placeholder="Enter Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
             <br/>
@@ -39,6 +42,7 @@ function Login(){
             <br/>
             <button onClick={handlelogin}>Login</button>
         </div>
+        
     )
 }
 export default Login;
