@@ -1,10 +1,10 @@
-const express = require("express");
-const fs = require("fs");
-const router = express.Router();
+import { Router } from "express";
+import { readFileSync, writeFileSync } from "fs";
+const router = Router();
 
-const readDB = () => JSON.parse(fs.readFileSync("db.json","utf-8"));
+const readDB = () => JSON.parse(readFileSync("db.json","utf-8"));
 
-const writeDB = (data) => fs.writeFileSync("db.json",JSON.stringify(data, null, 2));
+const writeDB = (data) => writeFileSync("db.json",JSON.stringify(data, null, 2));
 
 router.post("/",(req,res) => {
     const { productId, quantity } = req.body;
@@ -97,4 +97,4 @@ router.patch("/change-status/:orderId", (req, res) => {
     res.json(order);
 });
 
-module.exports = router;
+export default router;

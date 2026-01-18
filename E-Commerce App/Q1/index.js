@@ -1,11 +1,11 @@
-const express = require("express");
-const fs = require("fs");
-const productRoutes = require("./routes/products.routes");
-const orderRoutes = require("./routes/orders.routes");
+import express, { json } from "express";
+import fs from "fs";
+import productRoutes from "./routes/products.routes.js";
+import orderRoutes from "./routes/orders.routes.js";
 
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
