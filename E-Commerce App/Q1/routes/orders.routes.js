@@ -58,6 +58,43 @@ router.delete("/:orderId", (req, res) => {
 
     const today = new Date().toISOString().split("T")[0];
     if(order.createdAt !== today){
-        return res.status(400).json("Cancellation not allowed")
+        return res.status(400).json({msg: "Cancellation not allowed"});
     }
-})
+
+    order.status = "cancelled";
+
+    const product = db.products.find(p => p.id === order.productId);
+    product.stock += order.quantity;
+
+    writeDB(db);
+    res.json({msg: "Order cancelled"});
+});
+
+router.patch("/change-status/:orderId", (req, res) => {
+    const { status } = req.body;
+    const db = readDB();
+    const order = db.orders.find(o => o.id == req.params.orderId);
+
+    if(!order){
+        return res.status(404).json({msg: "Order not Found"});
+    }
+
+    if(["cancelled", "delivered"].includes(order.status)){
+        return res.status(400).json({msg: "Status change not allowed"});
+    }
+
+    const validFlow = {
+        placed: "shipped",
+        shipped: "delivered"
+    };
+
+    if(validFlow[order.status] !== status){
+        return res.status(400).json({msg: "Invalid status Flow"});
+    }
+
+    order.status = status;
+    writeDB(db);
+    res.json(order);
+});
+
+module.exports = router;
