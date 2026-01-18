@@ -17,4 +17,4 @@ router.get("/cancelled-orders", (req,res) => {
     const cancelled = db.orders.filter(o => o.status === "cancelled");
 });
 
-module.exports = router;
+export default router;
