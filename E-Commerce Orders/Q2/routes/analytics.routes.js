@@ -57,7 +57,7 @@ router.get("/alltotalrevenue", (req, res) => {
     .filter(o => o.status !== "cancelled")
     .reduce((sum, o) => sum + o.totalAmount, 0);
 
-    res.join({ totalRevenue });
+    res.json({ totalRevenue });
 });
 
 export default router;
