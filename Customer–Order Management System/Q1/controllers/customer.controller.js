@@ -1,4 +1,4 @@
-import { supabase } from '../config/supabase-js';
+import { supabase } from '../config/supabase.js';
 
 export const registerCustomer = async (req, res) => {
     const { full_name, email, phone } = req.body;
