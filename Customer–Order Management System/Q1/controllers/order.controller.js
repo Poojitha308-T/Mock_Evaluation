@@ -88,6 +88,26 @@ export const updateOrder = async (req, res) => {
 
 // delete order
 
+export const deleteOrder = async(req,res) => {
+    try{
+        const { orderId } = req.params
+        
+        if(!orderId){
+            return res.status(400).json({msg: 'Order Id is required'})
+        }
 
+        const {error} =await supabase.from('orders')
+        .delete()
+        .eq('id', orderId)
+
+        if(error){
+            return res.status(400).json({msg: error.message})
+        }
+
+        return res.status(200).json({msg: 'Order deleted succesfully'})
+    } catch(err){
+        return res.status(500).json({msg: err.message})
+    }
+}
 
 
